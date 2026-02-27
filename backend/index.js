@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import rateLimit from 'express-rate-limit';
 import booksRoute from './routes/booksRoute.js';
 
 dotenv.config();
@@ -10,6 +11,9 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+
+const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100 });
+app.use('/api/', limiter);
 
 app.use('/api/books', booksRoute);
 
