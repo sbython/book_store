@@ -1,0 +1,16 @@
+.actions-modal-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.actions-modal-btn {
+  padding: 15px;
+  font-size: 1.2rem;
+}
+
+.actions-modal-cancel {
+  padding: 15px;
+  font-size: 1.2rem;
+  margin-top: 10px;
+}

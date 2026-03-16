@@ -1,0 +1,14 @@
+.card-dynamic-bg {
+  cursor: pointer;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 350px;
+}
+
+.card-content-overlay {
+  background: rgba(255, 255, 255, 0.85);
+  margin-top: auto;
+  backdrop-filter: blur(5px);
+}

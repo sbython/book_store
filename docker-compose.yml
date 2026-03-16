@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: bookstore-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - mern_network
+    restart: always
+
+  backend:
+    build:
+      context: ./backend
+    container_name: bookstore-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - MONGO_URI=mongodb://mongodb:27017/bookstore
+    depends_on:
+      - mongodb
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+      - mern_network
+    restart: always
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: bookstore-frontend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:5000
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - mern_network
+    restart: always
+
+volumes:
+  mongodb_data:
+
+networks:
+  mern_network:
+    driver: bridge
